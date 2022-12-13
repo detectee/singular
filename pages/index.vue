@@ -1,5 +1,5 @@
 <template>
-  <div class="card col-12 lg:col-6 lg:col-offset-3">
+  <div class="col-12 lg:col-6 lg:col-offset-3">
     <ul class="list-none">
       <li v-for="tab in tableList" :key="tab.id" class="text-xl mb-2 ">
         <NuxtLink :to="`/${tab.name}`">{{ tab.name }}</NuxtLink>

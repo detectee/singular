@@ -11,7 +11,7 @@
           <i class="pi pi-save"></i>
         </Button>
         <Button class="p-button-danger p-button-outlined" @click="onDelete()">
-          <i class="pi pi-times"></i>
+          <i class="pi pi-trash"></i>
         </Button>
       </ul>
     </div>
@@ -65,6 +65,6 @@ function onSave() {
 
 function onDelete() {
   const res: Resource = toRaw(record.value)
-  singleDocument.remove(res).then(() => onClose())
+  res.id ? singleDocument.remove(res).then(() => onClose()) : onClose()
 }
 </script>

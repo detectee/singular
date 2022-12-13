@@ -1,14 +1,10 @@
 <template>
 <div class="col-12">
   <DataTable class="p-datatable-sm"
-    :value="records" :resizableColumns="false" column-resize-mode="fit"  responsive-layout="scroll"
+    :value="records" :resizableColumns="true" column-resize-mode="fit"  responsive-layout="scroll"
     :lazy="true" :totalRecords="totalRecords" :loading="loading" :scrollable="true"
     :paginator="true" :rows="10" :rowsPerPageOptions="[10,20,50]" @page="onPage($event)" ref="dt"
     paginatorTemplate="CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown"
-    @sort="onSort($event)"
-    v-model:filters="filters" filterDisplay="menu" :globalFilterFields="globalFilterFields" @filter="onFilter($event)"
-    rowdblclick="onRowClick($event)"
-    stateStorage="session" stateKey="dt-state-demo-session" @state-restore="onPage($event)"
   >
     <template #empty>
       No data found.
@@ -25,8 +21,10 @@
           </span>
         </span>
         <span class="p-input-icon-left ">
+          <!----
           <i class="pi pi-search" />
           <InputText v-model="globalFilter.value" placeholder="Keyword Search" @keydown.enter="onFilter($event)" />
+          <!---->
         </span>
       </div>
     </template>
@@ -35,12 +33,13 @@
         <Button icon="pi pi-pencil" class="p-button-sm p-button-success p-button-text" @click="editProduct(slotProps.data)" />
       </template>
     </Column>
-    <Column v-for="col of columns" :field="col.name" :header="col.name" :key="col.name" :style="{width:'150px'}" :sortable="true">
+    <Column v-for="col of columns" :field="col.name" :header="col.name" :key="col.name" :style="{width:'150px'}" :sortable="false">
       <template #filter="{filterModel,filterCallback}">
         <InputText type="text" v-model="filterModel.value" @keydown.enter="filterCallback()" class="p-column-filter" :placeholder="`Search - ${filterModel.matchMode}`"/>
       </template>
     </Column>
   </DataTable>
+  <!----
   <div>
     <pre>lazyPrms:{{ lazyPrms }}</pre>
     <pre>globalFilterFields:{{ globalFilterFields }}</pre>
@@ -48,6 +47,7 @@
     <pre v-pre>filters:{{ filters }}</pre>
     <pre>TR:{{ totalRecords }} RpP:{{ rowsPerPage }}</pre>
   </div>
+  <!---->
 </div>
 </template>
 
@@ -83,23 +83,9 @@ const globalFilter = ref({
 })
 
 const records: Ref<Resource[]> = ref([
-  // {"brand": "Volkswagen", "year": 2012, "color": "Orange", "vin": "dsad231ff"},
-  // {"brand": "Audi", "year": 2011, "color": "Black", "vin": "gwregre345"},
-  // {"brand": "Renault", "year": 2005, "color": "Gray", "vin": "h354htr"},
-  // {"brand": "BMW", "year": 2003, "color": "Blue", "vin": "j6w54qgh"},
-  // {"brand": "Mercedes", "year": 1995, "color": "Orange", "vin": "hrtwy34"},
-  // {"brand": "Volvo", "year": 2005, "color": "Black", "vin": "jejtyj"},
-  // {"brand": "Honda", "year": 2012, "color": "Yellow", "vin": "g43gr"},
-  // {"brand": "Jaguar", "year": 2013, "color": "Orange", "vin": "greg34"},
-  // {"brand": "Ford", "year": 2000, "color": "Black", "vin": "h54hw5"},
-  // {"brand": "Fiat", "year": 2013, "color": "Red", "vin": "245t2s"},
 ])
 
 const columns: Ref<any> = ref([
-  // { name: 'brand', field_name: 'Brand', id: 1 },
-  // { name: 'year', field_name: 'Year', id: 2 },
-  // { name: 'color', field_name: 'Color', id: 3 },
-  // { name: 'vin', field_name: 'VIN', id: 4 },
 ])
 
 function loadLazyData(options: FindOptions = {}) {

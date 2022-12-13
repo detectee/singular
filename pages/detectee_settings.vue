@@ -3,7 +3,11 @@
   <div class="card">
     <div class="mb-3">
       <ul class="list-none p-0 m-0 flex align-items-center gap-2">
-        <Button class="p-button-success p-button-outlined" @click="onSave()">
+        <Button class="p-button-outlined" @click="onClose()">
+          <i class="pi pi-chevron-left"></i>
+        </Button>
+        <Button class="p-button-success p-button-outlined" @click="onSaveAndClose()">
+          <i class="pi pi-chevron-left"></i>
           <i class="pi pi-save"></i>
         </Button>
       </ul>
@@ -34,10 +38,15 @@ useHead({
   title: `Detectee Settings`,
 })
 
-function onSave() {
+function onClose() {
+  const router = useRouter()
+  router.back()
+}
+
+function onSaveAndClose() {
   detecteeSetings.saveSettings()
   const infoSchema = useInformationSchemaRepository()
-  infoSchema.reset()
+  infoSchema.reset().then(() => onClose())
 }
 
 </script>
