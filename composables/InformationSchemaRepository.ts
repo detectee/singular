@@ -44,7 +44,7 @@ export const useInformationSchemaRepository = defineStore('informationSchemaRepo
 
   async function ready() {
     if (!initPromise) {
-      reset()
+      return reset()
     }
     return initPromise
   }
